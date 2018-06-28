@@ -30,11 +30,11 @@
   }
   
   .App {
-      text-align: center;
+      text-align: left;
       
     }
     
-    .App-header {
+    .App header {
       background-color: #111;
       height: 60px;
       padding: 20px;
