@@ -10,12 +10,12 @@ const createRegulation = gql`
   }
 `;
 
-class RegulationForm extends Component {
+class AddRegulationForm extends Component {
   state = {
     error: null,
   }
 
-  submitForm = () => {
+  addRegulationForm = () => {
     this.props
       .createRegulation({
         variables: {
@@ -37,8 +37,8 @@ class RegulationForm extends Component {
         </p>
         )}
         <input type="text" ref={input => (this.name = input)} />
-        <button onClick={this.submitForm}>
-Submit
+        <button onClick={this.addRegulationForm}>
+          Add regulation
         </button>
       </div>
     );
@@ -50,4 +50,4 @@ export default graphql(createRegulation, {
   options: {
     refetchQueries: ['Regulations'],
   },
-})(RegulationForm);
+})(AddRegulationForm);

@@ -51,12 +51,34 @@
       color: var(--white);
     }
     
-    .App-title {
-      font-size: 1.5em;
+    .App title {
+      font-size: 5em;
     }
     
     .App-intro {
       font-size: large;
     }
   
+.section {
+  font-size: 1.5em;
+  width: 95%;
+  text-align: left;
+  padding: 20px 20px;
+}
+
+.regulation {
   
+  }
+
+  .regulation-list {
+    list-style: none;
+
+  }
+
+  .regulation-title {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    width:95%;
+  }
+
