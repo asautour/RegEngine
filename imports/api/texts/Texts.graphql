@@ -1,0 +1,10 @@
+type Text {
+    _id: String
+    name: String
+    completed: Boolean
+}
+
+extend type Mutation {
+    createText(name: String!, regulationId:String!): Text
+    toggleText(_id:String!): Text
+}

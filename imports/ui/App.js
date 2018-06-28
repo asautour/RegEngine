@@ -3,8 +3,8 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import { withApollo } from 'react-apollo';
 import RegulationForm from './RegulationForm';
-import GoalForm from './GoalForm';
-import Goal from './regulations/Goal';
+import TextForm from './TextForm';
+import Text from './regulations/Text';
 import UserForm from './UserForm';
 
 const App = ({
@@ -29,11 +29,11 @@ const App = ({
               {regulation.name}
             </span>
             <ul>
-              {regulation.goals.map(goal => (
-                <Goal goal={goal} key={goal._id} />
+              {regulation.texts.map(text => (
+                <Text text={text} key={text._id} />
               ))}
             </ul>
-            <GoalForm regulationId={regulation._id} />
+            <TextForm regulationId={regulation._id} />
           </li>
         ))}
       </ul>
@@ -49,7 +49,7 @@ const regulationsQuery = gql`
       _id
       name
       completed
-      goals {
+      texts {
         _id
         name
         completed

@@ -1,7 +1,7 @@
 type Regulation {
   _id: String!
   name: String!
-  goals: [Goal]
+  texts: [Text]
   completed: Boolean
 }
 

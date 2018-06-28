@@ -1,5 +1,5 @@
 import Regulations from './regulations';
-import Goals from '../goals/goals';
+import Texts from '../texts/texts';
 
 export default {
   Query: {
@@ -11,17 +11,17 @@ export default {
   },
 
   Regulation: {
-    goals: regulation => Goals.find({
+    texts: regulation => Texts.find({
       regulationId: regulation._id,
     }).fetch(),
 
     completed: (regulation) => {
-      const goals = Goals.find({
+      const texts = Texts.find({
         regulationId: regulation._id,
       }).fetch();
-      if (goals.length === 0) return false;
-      const completedGoals = goals.filter(goal => goal.completed);
-      return completedGoals.length === goals.length;
+      if (texts.length === 0) return false;
+      const completedTexts = texts.filter(text => text.completed);
+      return completedTexts.length === texts.length;
     },
   },
 

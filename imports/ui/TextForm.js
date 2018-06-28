@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
-const createGoal = gql`
-  mutation createGoal($name: String!, $resolutionId: String!) {
-    createGoal(name: $name, resolutionId: $resolutionId) {
+const createText = gql`
+  mutation createText($name: String!, $regulationId: String!) {
+    createText(name: $name, regulationId: $regulationId) {
       _id
     }
   }
 `;
 
-class GoalForm extends Component {
+class TextForm extends Component {
   submitForm = () => {
-    this.props.createGoal({
+    this.props.createText({
       variables: {
         name: this.name.value,
-        resolutionId: this.props.resolutionId,
+        regulationId: this.props.regulationId,
       },
     }).then(() => {
       this.name.value = '';
@@ -37,9 +37,9 @@ Submit
   }
 }
 
-export default graphql(createGoal, {
-  name: 'createGoal',
+export default graphql(createText, {
+  name: 'createText',
   options: {
-    refetchQueries: ['Resolutions'],
+    refetchQueries: ['Regulations'],
   },
-})(GoalForm);
+})(TextForm);
