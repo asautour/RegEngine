@@ -1,23 +1,23 @@
-import Resolutions from './resolutions';
+import Regulations from './regulations';
 import Goals from '../goals/goals';
 
 export default {
   Query: {
-    resolutions(obj, args, { userId }) {
-      return Resolutions.find({
+    regulations(obj, args, { userId }) {
+      return Regulations.find({
         userId,
       }).fetch();
     },
   },
 
-  Resolution: {
-    goals: resolution => Goals.find({
-      resolutionId: resolution._id,
+  Regulation: {
+    goals: regulation => Goals.find({
+      regulationId: regulation._id,
     }).fetch(),
 
-    completed: (resolution) => {
+    completed: (regulation) => {
       const goals = Goals.find({
-        resolutionId: resolution._id,
+        regulationId: regulation._id,
       }).fetch();
       if (goals.length === 0) return false;
       const completedGoals = goals.filter(goal => goal.completed);
@@ -26,13 +26,13 @@ export default {
   },
 
   Mutation: {
-    createResolution(obj, { name }, { userId }) {
+    createRegulation(obj, { name }, { userId }) {
       if (userId) {
-        const resolutionId = Resolutions.insert({
+        const regulationId = Regulations.insert({
           name,
           userId,
         });
-        return Resolutions.findOne(resolutionId);
+        return Regulations.findOne(regulationId);
       }
       throw new Error('Unauthorized');
     },

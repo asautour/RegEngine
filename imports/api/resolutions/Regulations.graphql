@@ -1,4 +1,4 @@
-type Resolution {
+type Regulation {
   _id: String!
   name: String!
   goals: [Goal]
@@ -6,9 +6,9 @@ type Resolution {
 }
 
 type Query {
-  resolutions: [Resolution]
+  regulations: [Regulation]
 }
 
 type Mutation {
-  createResolution(name: String!): Resolution
+  createRegulation(name: String!): Regulation
 }

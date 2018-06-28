@@ -3,11 +3,11 @@ import Goals from './goals';
 export default {
 
   Mutation: {
-    createGoal(obj, { name, resolutionId }, { userId }) {
+    createGoal(obj, { name, regulationId }, { userId }) {
       if (userId) {
         const goalId = Goals.insert({
           name,
-          resolutionId,
+          regulationId,
           completed: false,
         });
         return Goals.findOne(goalId);

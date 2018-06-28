@@ -1,37 +1,66 @@
-/* eslint react/no-did-mount-set-state: 0 */
-import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-} from 'react-router-dom';
-import './App.css';
-import MainPanel from './MainPanel';
-import TopBar from './Topbar';
+import React from 'react';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+import { withApollo } from 'react-apollo';
+import RegulationForm from './RegulationForm';
+import GoalForm from './GoalForm';
+import Goal from './regulations/Goal';
+import UserForm from './UserForm';
 
-
-const App = () => (
-  <Router>
-    <div className="App">
-
-      {/* HEADER */}
-      <TopBar />
-
-      {/* MAIN CONTENT / CORE PANEL */}
-      <Switch>
-        <Route exact path="/" component={MainPanel} />
-        <Route path="/:search" component={MainPanel} />
-        <Route path="/:analyse" component={MainPanel} />
-        <Route path="/:change" component={MainPanel} />
-      </Switch>
-
-      {/* FOOTER */}
-      <footer>
-        This is my footer
-      </footer>
+const App = ({
+  loading, regulations, client, user,
+}) => {
+  if (loading) return null;
+  return (
+    <div>
+      <UserForm user={user} client={client} />
+      {user._id
+      && <RegulationForm />
+      }
+      {user._id
+      && (
+      <ul>
+        {regulations.map(regulation => (
+          <li key={regulation._id}>
+            <span style={{
+              textDecoration: regulation.completed ? 'line-through' : 'none',
+            }}
+            >
+              {regulation.name}
+            </span>
+            <ul>
+              {regulation.goals.map(goal => (
+                <Goal goal={goal} key={goal._id} />
+              ))}
+            </ul>
+            <GoalForm regulationId={regulation._id} />
+          </li>
+        ))}
+      </ul>
+      )
+      }
     </div>
-  </Router>
-);
+  );
+};
 
-export default App;
+const regulationsQuery = gql`
+  query Regulations {
+    regulations {
+      _id
+      name
+      completed
+      goals {
+        _id
+        name
+        completed
+      }
+    }
+    user {
+      _id
+    }
+  }
+`;
+
+export default graphql(regulationsQuery, {
+  props: ({ data }) => ({ ...data }),
+})(withApollo(App));
